@@ -701,6 +701,7 @@ int main(int argc, char *argv[]) { //Iniciar programa
 								
 							//Listar todas as cargas
 							}else if(intOpcaoMenuCargas == 2){
+								
 								//Verificar se a lista de cargas está vazia
 								int listaCargasVazia = 0;
 								for (int contadorListaCargasVazia = 0; contadorListaCargasVazia < MAX_CARGAS; contadorListaCargasVazia++){
@@ -722,7 +723,6 @@ int main(int argc, char *argv[]) { //Iniciar programa
 									multiplicarPrintf("=", 122);
 									printf("\n Pressione qualquer tecla para voltar:");
 									getch();
-								//Caso tenha cargas na lista
 								}else if (listaCargasVazia == 1){
 									int linesListarCargas = (quantidadeDeValoresNoArray_carga * 9) + 13;
 									sprintf(charTamanhoConsoleListarCargas, "mode con:cols=122 lines=%d", linesListarCargas);
@@ -732,19 +732,19 @@ int main(int argc, char *argv[]) { //Iniciar programa
 									logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
 									printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
 									multiplicarPrintf("=", 122);
-									int indiceListarCargas;
-									for (int contadorListarCargas = 0; contadorListarCargas < MAX_CARGAS; contadorListarCargas++){
-									    if (strcmp(carga[contadorListarCargas].CODIGO_CARGA, "") != 0){ //Compara se uma variável tem um valor específico
-									        indiceListarCargas = contadorListarCargas;
+									int contadorListarCargas = 0;
+									for (int indiceListarCargas = 0; indiceListarCargas < MAX_CARGAS; indiceListarCargas++){
+									    if (strcmp(carga[indiceListarCargas].CODIGO_CARGA, "") != 0){ //Compara se uma variável tem um valor específico
+									        contadorListarCargas += 1;
 									        printf("\n Código de embarque: %s", carga[indiceListarCargas].CODIGO_CARGA);;
 											printf("\n Descrição: %s", carga[indiceListarCargas].DESCRICAO_CARGA);
 											printf("\n Dimensões (LARGURAcm/ALTURAcm/PORFUNDIDADEcm): %s", carga[indiceListarCargas].DIMENSOES_CARGA);
 											printf("\n Peso: %.2f", carga[indiceListarCargas].PESO_CARGA);
 											printf("\n Local de embarque: %s", carga[indiceListarCargas].EMBARQUE_CARGA);
 											printf("\n Local de desembarque: %s \n", carga[indiceListarCargas].DESEMBARQUE_CARGA);
-											if ((indiceListarCargas + 1) < quantidadeDeValoresNoArray_carga){
+											if (contadorListarCargas < quantidadeDeValoresNoArray_carga){
 												multiplicarPrintf("-", 122);
-											}else if ((indiceListarCargas + 1) == quantidadeDeValoresNoArray_carga){
+											}else if (contadorListarCargas == quantidadeDeValoresNoArray_carga){
 												multiplicarPrintf("=", 122);
 											}
 									    }
@@ -755,80 +755,77 @@ int main(int argc, char *argv[]) { //Iniciar programa
 								
 							//Excluir cargas
 							}else if(intOpcaoMenuCargas == 3){
-								int contadorTentativasExcluirCargas = 3;
-								system("mode con:cols=122 lines=14"); //Definindo tamanho do console
-								system("color B0"); //Definindo cor do console
-								system("cls");
-								logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
-								printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
-								multiplicarPrintf("=", 122);
-								printf("\n (Tentativas: %i)", contadorTentativasExcluirCargas);
-								printf("\n Informe o código de embarque da carga que deseja excluir:");
-								scanf("%s", &excluirCargas);
-								contadorTentativasExcluirCargas--;
 								
-								//Verificar se o código de embarque da carga está cadastrado
-								int indiceExcluirCargas = -1;
-								for (int contadorExcluirCargas = 0; contadorExcluirCargas < MAX_CARGAS; contadorExcluirCargas++){
-									if (strcmp(excluirCargas, carga[contadorExcluirCargas].CODIGO_CARGA) == 0){ //Comparar se duas variáveis são iguais
-										indiceExcluirCargas = contadorExcluirCargas;
-									}
+								//Verificar se a lista de cargas está vazia
+								int listaCargasVazia = 0;
+								for (int contadorListaCargasVazia = 0; contadorListaCargasVazia < MAX_CARGAS; contadorListaCargasVazia++){
+								    if (strcmp(carga[contadorListaCargasVazia].CODIGO_CARGA, "") != 0){ //Compara se uma variável não tem um valor específico
+								        listaCargasVazia = 1;
+								        break;
+								    }
 								}
 								
-								//Corrigir erro se o código de embarque da carga não estiver cadastrado
-								if (indiceExcluirCargas == -1){
-									
-									//Limitar tentativas de excluir cargas
-									do{	
-										system("color B0"); //Definindo cor do console
-										system("cls");
-										logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
-										printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
-										multiplicarPrintf("=", 122);
-										printf("\n (Tentativas: %i)", contadorTentativasExcluirCargas);
-										printf("\n ERRO! carga NÃO CADASTRADA!:");
-										scanf("%s", &excluirCargas);
-										contadorTentativasExcluirCargas--;
-										
-										//Verificar se o código de embarque da carga está cadastrado
-										indiceExcluirCargas = -1;
-										for (int contadorExcluirCargas = 0; contadorExcluirCargas < MAX_CARGAS; contadorExcluirCargas++){
-											if (strcmp(excluirCargas, carga[contadorExcluirCargas].CODIGO_CARGA) == 0){ //Comparar se duas variáveis são iguais
-												indiceExcluirCargas = contadorExcluirCargas;
-											}
-										}
-									}while (contadorTentativasExcluirCargas != 0 && indiceExcluirCargas == -1);
-									
-								}
-								
-								//Se o código de embarque da carga estiver cadastrado
-								if (indiceExcluirCargas != -1){
-									system("mode con:cols=122 lines=43"); //Definindo tamanho do console
+								//Caso não tenha cargas na lista
+								if (listaCargasVazia != 1){
+									system("mode con:cols=122 lines=17"); //Definindo tamanho do console
 									system("color B0"); //Definindo cor do console
 									system("cls");
 									logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
 									printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
 									multiplicarPrintf("=", 122);
-									printf("\n Código de embarque: %s \n", carga[indiceExcluirCargas].CODIGO_CARGA);
-									multiplicarPrintf("-", 122);
-									printf("\n Descrição: %s \n", carga[indiceExcluirCargas].DESCRICAO_CARGA);
-									multiplicarPrintf("-", 122);
-									printf("\n Dimensões (LARGURAcm/ALTURAcm/PORFUNDIDADEcm): %s \n", carga[indiceExcluirCargas].DIMENSOES_CARGA);
-									multiplicarPrintf("-", 122);
-									printf("\n Peso: %.2f \n", carga[indiceExcluirCargas].PESO_CARGA);
-									multiplicarPrintf("-", 122);
-									printf("\n Local de embarque: %s \n", carga[indiceExcluirCargas].EMBARQUE_CARGA);
-									multiplicarPrintf("-", 122);
-									printf("\n Local de desembarque: %s \n", carga[indiceExcluirCargas].DESEMBARQUE_CARGA);
+									printf("\n NÃO há cargas CADASTRADAS! \n");
 									multiplicarPrintf("=", 122);
-									printf("\n Tem certeza de que deseja excluir essa carga? \n");
-									printf(" 1 - Sim \n");
-									printf(" 0 - Não \n");
+									printf("\n Pressione qualquer tecla para voltar:");
+									getch();
+								}else if (listaCargasVazia == 1){
+									int contadorTentativasExcluirCargas = 3;
+									system("mode con:cols=122 lines=14"); //Definindo tamanho do console
+									system("color B0"); //Definindo cor do console
+									system("cls");
+									logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+									printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
 									multiplicarPrintf("=", 122);
-									printf("\n Selecione uma opção (1 ou 0):");
-									scanf("%s", &opcaoExcluirCarga);
-									intOpcaoExcluirCarga = atoi(opcaoExcluirCarga);
-									while (intOpcaoExcluirCarga != 1 && intOpcaoExcluirCarga != 0){
+									printf("\n (Tentativas: %i)", contadorTentativasExcluirCargas);
+									printf("\n Informe o código de embarque da carga que deseja excluir:");
+									scanf("%s", &excluirCargas);
+									contadorTentativasExcluirCargas--;
+									
+									//Verificar se o código de embarque da carga está cadastrado
+									int indiceExcluirCargas = -1;
+									for (int contadorExcluirCargas = 0; contadorExcluirCargas < MAX_CARGAS; contadorExcluirCargas++){
+										if (strcmp(excluirCargas, carga[contadorExcluirCargas].CODIGO_CARGA) == 0){ //Comparar se duas variáveis são iguais
+											indiceExcluirCargas = contadorExcluirCargas;
+										}
+									}
+									
+									//Corrigir erro se o código de embarque da carga não estiver cadastrado
+									if (indiceExcluirCargas == -1){
+										
+										//Limitar tentativas de excluir cargas
+										do{	
+											system("color B0"); //Definindo cor do console
+											system("cls");
+											logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+											printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+											multiplicarPrintf("=", 122);
+											printf("\n (Tentativas: %i)", contadorTentativasExcluirCargas);
+											printf("\n ERRO! carga NÃO CADASTRADA!:");
+											scanf("%s", &excluirCargas);
+											contadorTentativasExcluirCargas--;
+											
+											//Verificar se o código de embarque da carga está cadastrado
+											indiceExcluirCargas = -1;
+											for (int contadorExcluirCargas = 0; contadorExcluirCargas < MAX_CARGAS; contadorExcluirCargas++){
+												if (strcmp(excluirCargas, carga[contadorExcluirCargas].CODIGO_CARGA) == 0){ //Comparar se duas variáveis são iguais
+													indiceExcluirCargas = contadorExcluirCargas;
+												}
+											}
+										}while (contadorTentativasExcluirCargas != 0 && indiceExcluirCargas == -1);
+										
+									}
+									
+									//Se o código de embarque da carga estiver cadastrado
+									if (indiceExcluirCargas != -1){
 										system("mode con:cols=122 lines=43"); //Definindo tamanho do console
 										system("color B0"); //Definindo cor do console
 										system("cls");
@@ -851,32 +848,60 @@ int main(int argc, char *argv[]) { //Iniciar programa
 										printf(" 1 - Sim \n");
 										printf(" 0 - Não \n");
 										multiplicarPrintf("=", 122);
-										printf("\n ERRO! selecione uma opção VÁLIDA! (1 ou 0):");
+										printf("\n Selecione uma opção (1 ou 0):");
 										scanf("%s", &opcaoExcluirCarga);
 										intOpcaoExcluirCarga = atoi(opcaoExcluirCarga);
-									}
-									if(intOpcaoExcluirCarga == 1){
-										strcpy(carga[indiceExcluirCargas].CODIGO_CARGA, "");
-										strcpy(carga[indiceExcluirCargas].DESCRICAO_CARGA, "");
-										strcpy(carga[indiceExcluirCargas].DIMENSOES_CARGA, "");
-										carga[indiceExcluirCargas].PESO_CARGA = 0.0;
-										strcpy(carga[indiceExcluirCargas].EMBARQUE_CARGA, "");
-										strcpy(carga[indiceExcluirCargas].DESEMBARQUE_CARGA, "");
-										
-										//Contar quantos elementos tem a função 'carga' com valores diferentes de vazio ("")
-										contadorquantidadeDeValoresNoArray_carga = 0;
-										quantidadeDeValoresNoArray_carga = 0;
-										while (contadorquantidadeDeValoresNoArray_carga < MAX_CARGAS){
-											if (strcmp(carga[contadorquantidadeDeValoresNoArray_carga].CODIGO_CARGA, "") != 0){
-												quantidadeDeValoresNoArray_carga += 1;
-											}
-											contadorquantidadeDeValoresNoArray_carga += 1;
+										while (intOpcaoExcluirCarga != 1 && intOpcaoExcluirCarga != 0){
+											system("mode con:cols=122 lines=43"); //Definindo tamanho do console
+											system("color B0"); //Definindo cor do console
+											system("cls");
+											logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+											printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+											multiplicarPrintf("=", 122);
+											printf("\n Código de embarque: %s \n", carga[indiceExcluirCargas].CODIGO_CARGA);
+											multiplicarPrintf("-", 122);
+											printf("\n Descrição: %s \n", carga[indiceExcluirCargas].DESCRICAO_CARGA);
+											multiplicarPrintf("-", 122);
+											printf("\n Dimensões (LARGURAcm/ALTURAcm/PORFUNDIDADEcm): %s \n", carga[indiceExcluirCargas].DIMENSOES_CARGA);
+											multiplicarPrintf("-", 122);
+											printf("\n Peso: %.2f \n", carga[indiceExcluirCargas].PESO_CARGA);
+											multiplicarPrintf("-", 122);
+											printf("\n Local de embarque: %s \n", carga[indiceExcluirCargas].EMBARQUE_CARGA);
+											multiplicarPrintf("-", 122);
+											printf("\n Local de desembarque: %s \n", carga[indiceExcluirCargas].DESEMBARQUE_CARGA);
+											multiplicarPrintf("=", 122);
+											printf("\n Tem certeza de que deseja excluir essa carga? \n");
+											printf(" 1 - Sim \n");
+											printf(" 0 - Não \n");
+											multiplicarPrintf("=", 122);
+											printf("\n ERRO! selecione uma opção VÁLIDA! (1 ou 0):");
+											scanf("%s", &opcaoExcluirCarga);
+											intOpcaoExcluirCarga = atoi(opcaoExcluirCarga);
 										}
-									}else if(intOpcaoExcluirCarga == 0){
-										continue;
+										if(intOpcaoExcluirCarga == 1){
+											strcpy(carga[indiceExcluirCargas].CODIGO_CARGA, "");
+											strcpy(carga[indiceExcluirCargas].DESCRICAO_CARGA, "");
+											strcpy(carga[indiceExcluirCargas].DIMENSOES_CARGA, "");
+											carga[indiceExcluirCargas].PESO_CARGA = 0.0;
+											strcpy(carga[indiceExcluirCargas].EMBARQUE_CARGA, "");
+											strcpy(carga[indiceExcluirCargas].DESEMBARQUE_CARGA, "");
+											
+											//Contar quantos elementos tem a função 'carga' com valores diferentes de vazio ("")
+											contadorquantidadeDeValoresNoArray_carga = 0;
+											quantidadeDeValoresNoArray_carga = 0;
+											while (contadorquantidadeDeValoresNoArray_carga < MAX_CARGAS){
+												if (strcmp(carga[contadorquantidadeDeValoresNoArray_carga].CODIGO_CARGA, "") != 0){
+													quantidadeDeValoresNoArray_carga += 1;
+												}
+												contadorquantidadeDeValoresNoArray_carga += 1;
+											}
+											
+										}else if(intOpcaoExcluirCarga == 0){
+											continue;
+										}
 									}
 								}
-								
+							
 							//Voltar ao menu principal
 							}else if(intOpcaoMenuCargas == 0){
 								sairMenuCarga = 1;
