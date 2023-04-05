@@ -32,6 +32,10 @@ int intOpcaoAjuda;
 int quantidadeDeValoresNoArray_carga;
 char opcaoMenuCargas[1];
 int intOpcaoMenuCargas;
+char opcaoSobreporCargas[1];
+int intOpcaoSobreporCargas = 1;
+char opcaoConfirmarSobreporCargas[1];
+int intOpcaoConfirmarSobreporCargas;
 char confirmarCadastroNovaCarga[1];
 int intConfirmarCadastroNovaCarga;
 char opcaoExcluirCarga[1];
@@ -468,7 +472,7 @@ int main(int argc, char *argv[]) { //Iniciar programa
 										
 										//Se o código de embarque já estiver cadastrado, pede para o usuário digitar outro código de embarque
 										while (condigoCargaJaCadastrado == 1){
-											system("mode con:cols=122 lines=37"); //Definindo tamanho do console
+											system("mode con:cols=122 lines=49"); //Definindo tamanho do console
 											system("color B0"); //Definindo cor do console
 											system("cls");
 											logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
@@ -486,9 +490,127 @@ int main(int argc, char *argv[]) { //Iniciar programa
 											multiplicarPrintf("-", 122);
 											printf("\n Local de desembarque: %s \n", carga[indiceCondigoCargaJaCadastrado].DESEMBARQUE_CARGA);
 											multiplicarPrintf("=", 122);
-										    printf("\n ERRO! código de embarque JÁ CADASTRADO!: ");
-										    scanf("%s", codigoCarga);
+											printf("\n 1 - Cadastrar nova carga com outro código de embarque \n");
+											multiplicarPrintf("-", 122);
+											printf("\n 2 - Sobrepor carga cadastrada com a nova carga \n");
+											multiplicarPrintf("-", 122);
+											printf("\n 0 - Voltar \n");;
+											multiplicarPrintf("=", 122);
+										    printf("\n Código de embarque JÁ CADASTRADO!, selecione uma opção (1, 2 ou 0):");
+										    scanf("%s", &opcaoSobreporCargas);
+											intOpcaoSobreporCargas = atoi(opcaoSobreporCargas);
 										    
+										    //Corrigir erros pedir uma opção para o usuário
+											while (intOpcaoSobreporCargas != 1 && intOpcaoSobreporCargas != 2 && intOpcaoSobreporCargas != 0){
+												system("mode con:cols=122 lines=49"); //Definindo tamanho do console
+												system("color B0"); //Definindo cor do console
+												system("cls");
+												logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+												printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+												multiplicarPrintf("=", 122);
+												printf("\n Código de embarque: %s \n", carga[indiceCondigoCargaJaCadastrado].CODIGO_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Descrição: %s \n", carga[indiceCondigoCargaJaCadastrado].DESCRICAO_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Dimensões (LARGURAcm/ALTURAcm/PORFUNDIDADEcm): %s \n", carga[indiceCondigoCargaJaCadastrado].DIMENSOES_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Peso: %.2f \n", carga[indiceCondigoCargaJaCadastrado].PESO_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Local de embarque: %s \n", carga[indiceCondigoCargaJaCadastrado].EMBARQUE_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Local de desembarque: %s \n", carga[indiceCondigoCargaJaCadastrado].DESEMBARQUE_CARGA);
+												multiplicarPrintf("=", 122);
+												printf("\n 1 - Cadastrar nova carga com outro código de embarque \n");
+												multiplicarPrintf("-", 122);
+												printf("\n 2 - Sobrepor carga cadastrada com a nova carga \n");
+												multiplicarPrintf("-", 122);
+												printf("\n 0 - Voltar \n");;
+												multiplicarPrintf("=", 122);
+												printf("\n ERRO! selecione uma opção VÁLIDA! (1, 2 ou 0):");
+												fflush(stdin); //Sem limpar o buffer de entrada entra em um loop infinito
+												scanf("%s", &opcaoSobreporCargas);
+												intOpcaoSobreporCargas = atoi(opcaoSobreporCargas);
+											}
+											
+										    if (intOpcaoSobreporCargas == 1){
+										    	//Código
+												system("mode con:cols=122 lines=13"); //Definindo tamanho do console
+												system("color B0"); //Definindo cor do console
+												system("cls");
+												logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+												printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+												multiplicarPrintf("=", 122);
+												printf("\n Código de embarque:");
+												scanf("%s", codigoCarga);
+											}else if (intOpcaoSobreporCargas == 2){
+												system("mode con:cols=122 lines=47"); //Definindo tamanho do console
+												system("color B0"); //Definindo cor do console
+												system("cls");
+												logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+												printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+												multiplicarPrintf("=", 122);
+												printf("\n Código de embarque: %s \n", carga[indiceCondigoCargaJaCadastrado].CODIGO_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Descrição: %s \n", carga[indiceCondigoCargaJaCadastrado].DESCRICAO_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Dimensões (LARGURAcm/ALTURAcm/PORFUNDIDADEcm): %s \n", carga[indiceCondigoCargaJaCadastrado].DIMENSOES_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Peso: %.2f \n", carga[indiceCondigoCargaJaCadastrado].PESO_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Local de embarque: %s \n", carga[indiceCondigoCargaJaCadastrado].EMBARQUE_CARGA);
+												multiplicarPrintf("-", 122);
+												printf("\n Local de desembarque: %s \n", carga[indiceCondigoCargaJaCadastrado].DESEMBARQUE_CARGA);
+												multiplicarPrintf("=", 122);
+												printf("\n Tem certeza de que deseja sobrepor essa carga? \n");
+												printf("\n 1 - Sim \n");
+												multiplicarPrintf("-", 122);
+												printf("\n 0 - Não \n");
+												multiplicarPrintf("=", 122);
+												printf("\n Selecione uma opção (1 ou 0):");
+												scanf("%s", &opcaoConfirmarSobreporCargas);
+												intOpcaoConfirmarSobreporCargas = atoi(opcaoConfirmarSobreporCargas);
+												while (intOpcaoConfirmarSobreporCargas != 1 && intOpcaoConfirmarSobreporCargas != 0){
+													system("mode con:cols=122 lines=47"); //Definindo tamanho do console
+													system("color B0"); //Definindo cor do console
+													system("cls");
+													logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+													printf("\n ID: %s | Nome: %s \n", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+													multiplicarPrintf("=", 122);
+													printf("\n Código de embarque: %s \n", carga[indiceCondigoCargaJaCadastrado].CODIGO_CARGA);
+													multiplicarPrintf("-", 122);
+													printf("\n Descrição: %s \n", carga[indiceCondigoCargaJaCadastrado].DESCRICAO_CARGA);
+													multiplicarPrintf("-", 122);
+													printf("\n Dimensões (LARGURAcm/ALTURAcm/PORFUNDIDADEcm): %s \n", carga[indiceCondigoCargaJaCadastrado].DIMENSOES_CARGA);
+													multiplicarPrintf("-", 122);
+													printf("\n Peso: %.2f \n", carga[indiceCondigoCargaJaCadastrado].PESO_CARGA);
+													multiplicarPrintf("-", 122);
+													printf("\n Local de embarque: %s \n", carga[indiceCondigoCargaJaCadastrado].EMBARQUE_CARGA);
+													multiplicarPrintf("-", 122);
+													printf("\n Local de desembarque: %s \n", carga[indiceCondigoCargaJaCadastrado].DESEMBARQUE_CARGA);
+													multiplicarPrintf("=", 122);
+													printf("\n Tem certeza de que deseja sobrepor essa carga? \n");
+													printf("\n 1 - Sim \n");
+													multiplicarPrintf("-", 122);
+													printf("\n 0 - Não \n");
+													multiplicarPrintf("=", 122);
+													printf("\n ERRO! selecione uma opção VÁLIDA! (1 ou 0):");
+													scanf("%s", &opcaoConfirmarSobreporCargas);
+													intOpcaoConfirmarSobreporCargas = atoi(opcaoConfirmarSobreporCargas);
+												}
+												if (intOpcaoConfirmarSobreporCargas == 1){
+													strcpy(carga[indiceCondigoCargaJaCadastrado].CODIGO_CARGA, "");
+													strcpy(carga[indiceCondigoCargaJaCadastrado].DESCRICAO_CARGA, "");
+													strcpy(carga[indiceCondigoCargaJaCadastrado].DIMENSOES_CARGA, "");
+													carga[indiceCondigoCargaJaCadastrado].PESO_CARGA = 0;
+													strcpy(carga[indiceCondigoCargaJaCadastrado].EMBARQUE_CARGA, "");
+													strcpy(carga[indiceCondigoCargaJaCadastrado].DESEMBARQUE_CARGA, "");
+												}else if (intOpcaoConfirmarSobreporCargas == 0){
+													continue;
+												}
+											}else if (intOpcaoSobreporCargas == 0){
+												break;
+											}
+											
 										    //Verifica se o código de embarque já está cadastrado
 											condigoCargaJaCadastrado = 0;
 											indiceCondigoCargaJaCadastrado = 0;
@@ -499,6 +621,11 @@ int main(int argc, char *argv[]) { //Iniciar programa
 											        break;
 											    }
 											}
+										}
+										
+										if (intOpcaoSobreporCargas == 0){
+											intOpcaoSobreporCargas = 1;
+											break;
 										}
 										strcpy(carga[indiceCodigoCarga].CODIGO_CARGA, codigoCarga);
 										
