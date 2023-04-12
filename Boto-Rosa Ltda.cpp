@@ -398,7 +398,7 @@ int main(int argc, char *argv[]) { //Iniciar programa
 							intOpcaoMenuCargas = atoi(opcaoMenuCargas);
 							
 							//Corrigir erros pedir uma opção para o usuário
-							while (intOpcaoMenuCargas != 1 && intOpcaoMenuCargas != 2 && intOpcaoMenuCargas != 3 && intOpcaoMenuCargas != 0){
+							while (intOpcaoMenuCargas != 1 && intOpcaoMenuCargas != 2 && intOpcaoMenuCargas != 3 && opcaoMenuCargas[0] != '0'){
 								system("mode con:cols=122 lines=29"); //Definindo tamanho do console
 								system("color B0"); //Definindo cor do console
 								system("cls");
@@ -501,7 +501,7 @@ int main(int argc, char *argv[]) { //Iniciar programa
 											intOpcaoSobreporCargas = atoi(opcaoSobreporCargas);
 										    
 										    //Corrigir erros pedir uma opção para o usuário
-											while (intOpcaoSobreporCargas != 1 && intOpcaoSobreporCargas != 2 && intOpcaoSobreporCargas != 0){
+											while (intOpcaoSobreporCargas != 1 && intOpcaoSobreporCargas != 2 && opcaoSobreporCargas[0] != '0'){
 												system("mode con:cols=122 lines=49"); //Definindo tamanho do console
 												system("color B0"); //Definindo cor do console
 												system("cls");
@@ -569,7 +569,7 @@ int main(int argc, char *argv[]) { //Iniciar programa
 												printf("\n Selecione uma opção (1 ou 0):");
 												scanf("%s", &opcaoConfirmarSobreporCargas);
 												intOpcaoConfirmarSobreporCargas = atoi(opcaoConfirmarSobreporCargas);
-												while (intOpcaoConfirmarSobreporCargas != 1 && intOpcaoConfirmarSobreporCargas != 0){
+												while (intOpcaoConfirmarSobreporCargas != 1 && opcaoConfirmarSobreporCargas[0] != '0'){
 													system("mode con:cols=122 lines=47"); //Definindo tamanho do console
 													system("color B0"); //Definindo cor do console
 													system("cls");
@@ -773,7 +773,7 @@ int main(int argc, char *argv[]) { //Iniciar programa
 										intConfirmarCadastroNovaCarga = atoi(confirmarCadastroNovaCarga);
 										
 										//Corrigir erros confirmar cadastro nova carga
-										while (intConfirmarCadastroNovaCarga != 1 && intConfirmarCadastroNovaCarga != 0){
+										while (intConfirmarCadastroNovaCarga != 1 && confirmarCadastroNovaCarga[0] != '0'){
 									    	system("mode con:cols=122 lines=45"); //Definindo tamanho do console
 											system("color B0"); //Definindo cor do console
 											system("cls");
@@ -978,7 +978,7 @@ int main(int argc, char *argv[]) { //Iniciar programa
 										printf("\n Selecione uma opção (1 ou 0):");
 										scanf("%s", &opcaoExcluirCarga);
 										intOpcaoExcluirCarga = atoi(opcaoExcluirCarga);
-										while (intOpcaoExcluirCarga != 1 && intOpcaoExcluirCarga != 0){
+										while (intOpcaoExcluirCarga != 1 && opcaoExcluirCarga[0] != '0'){
 											system("mode con:cols=122 lines=43"); //Definindo tamanho do console
 											system("color B0"); //Definindo cor do console
 											system("cls");
@@ -1101,72 +1101,109 @@ int main(int argc, char *argv[]) { //Iniciar programa
 							//Decisões do usuário
 							//Usuário trocar senha
 							if (intOpcaoAjuda == 7){
-								do{
+								
+								//Pedir para o(a) usuário(a) informar senha atual
+								int contadorTentativasSenhaAtual = 3;
+				
+								//Pedir senha já registrada do(a) usuário(a)
+								system("mode con:cols=122 lines=14"); //Definindo tamanho do console
+								system("color B0"); //Definindo cor do console
+								system("cls");
+								logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+								printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+								multiplicarPrintf("=", 122);
+								printf("\n (Tentativas: %i)", contadorTentativasSenhaAtual);
+								printf("\n Informe sua senha atual:");
+								scanf("%s", &loginSenha);
+								contadorTentativasSenhaAtual--;
+								
+								//Corrigir erros pedir senha já registrada
+								if (strcmp(loginSenha, usuario[contadorUsuario].SENHA) != 0){
 									
-									//Pedir para o(a) usuário(a) criar nova senha
-									system("mode con:cols=122 lines=13"); //Definindo tamanho do console
-									system("color B0"); //Definindo cor do console
-									system("cls");
-									logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
-									printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
-									multiplicarPrintf("=", 122);
-									printf("\n Informe uma nova senha:");
-									scanf("%s", usuario[contadorUsuario].SENHA);
+									//Limitar tentativas de senha no login
+									do{
+										system("mode con:cols=122 lines=14"); //Definindo tamanho do console
+										system("color B0"); //Definindo cor do console
+										system("cls");
+										logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+										printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+										multiplicarPrintf("=", 122);
+										printf("\n (Tentativas: %i)", contadorTentativasSenhaAtual);
+										printf("\n ERRO! senha atual INVÁLIDA!:");
+										scanf("%s", &loginSenha);
+										contadorTentativasSenhaAtual--;
+									}while (contadorTentativasSenhaAtual != 0 && strcmp(loginSenha, usuario[contadorUsuario].SENHA) != 0);
+								}
+								if (strcmp(loginSenha, usuario[contadorUsuario].SENHA) == 0){ //Compara se duas variáveis são iguais
+									do{
 									
-									//Bloquear nova senha com mais de doze (12) dígitos
-									if (strlen(usuario[contadorUsuario].SENHA) > 12){ //Comparar se uma variável tem um valor específico igual
-										do{
-											system("mode con:cols=122 lines=13"); //Definindo tamanho do console
-											system("color B0"); //Definindo cor do console
-											system("cls");
-											logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
-											printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
-											multiplicarPrintf("=", 122);
-											printf("\n ERRO! senhas com mais de doze (12) dígitos serão BLOQUEADAS!:");
-											scanf("%s", usuario[contadorUsuario].SENHA);
-										}while (strlen(usuario[contadorUsuario].SENHA) > 12); //Comparar se uma variável tem um valor específico igual
-									}
-									
-									//Bloquear nova senha "0"
-									if (strcmp(usuario[contadorUsuario].SENHA, "0") == 0){ //Comparar se uma variável tem um valor específico igual
-										do{
-											system("mode con:cols=122 lines=13"); //Definindo tamanho do console
-											system("color B0"); //Definindo cor do console
-											system("cls");
-											logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
-											printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
-											multiplicarPrintf("=", 122);
-											printf("\n ERRO! senha BLOQUEADA!:");
-											scanf("%s", usuario[contadorUsuario].SENHA);
-											
-											//Bloquear nova senha com mais de doze (12) dígitos
-											if (strlen(usuario[contadorUsuario].SENHA) > 12){ //Comparar se uma variável tem um valor específico igual
-												do{
-													system("mode con:cols=122 lines=13"); //Definindo tamanho do console
-													system("color B0"); //Definindo cor do console
-													system("cls");
-													logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
-													printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
-													multiplicarPrintf("=", 122);
-													printf("\n ERRO! senhas com mais de doze (12) dígitos serão BLOQUEADAS!:");
-													scanf("%s", usuario[contadorUsuario].SENHA);
-												}while (strlen(usuario[contadorUsuario].SENHA) > 12); //Comparar se uma variável tem um valor específico igual
-											}
-											
-										}while (strcmp(usuario[contadorUsuario].SENHA, "0") == 0); //Comparar se uma variável tem um valor específico igual
-									}
-									
-									//Confirmar criar senha do usuário
-									system("mode con:cols=122 lines=13"); //Definindo tamanho do console
-									system("color B0"); //Definindo cor do console
-									system("cls");
-									logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
-									printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
-									multiplicarPrintf("=", 122);
-									printf("\n Confirme sua nova senha:");
-									scanf("%s", confirmarSenha);
-									
-								}while(strcmp(usuario[contadorUsuario].SENHA, confirmarSenha) != 0); //Comparar se duas variável são diferentes	
+										//Pedir para o(a) usuário(a) criar nova senha
+										system("mode con:cols=122 lines=13"); //Definindo tamanho do console
+										system("color B0"); //Definindo cor do console
+										system("cls");
+										logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+										printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+										multiplicarPrintf("=", 122);
+										printf("\n Informe uma nova senha:");
+										scanf("%s", usuario[contadorUsuario].SENHA);
+										
+										//Bloquear nova senha com mais de doze (12) dígitos
+										if (strlen(usuario[contadorUsuario].SENHA) > 12){ //Comparar se uma variável tem um valor específico igual
+											do{
+												system("mode con:cols=122 lines=13"); //Definindo tamanho do console
+												system("color B0"); //Definindo cor do console
+												system("cls");
+												logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+												printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+												multiplicarPrintf("=", 122);
+												printf("\n ERRO! senhas com mais de doze (12) dígitos serão BLOQUEADAS!:");
+												scanf("%s", usuario[contadorUsuario].SENHA);
+											}while (strlen(usuario[contadorUsuario].SENHA) > 12); //Comparar se uma variável tem um valor específico igual
+										}
+										
+										//Bloquear nova senha "0"
+										if (strcmp(usuario[contadorUsuario].SENHA, "0") == 0){ //Comparar se uma variável tem um valor específico igual
+											do{
+												system("mode con:cols=122 lines=13"); //Definindo tamanho do console
+												system("color B0"); //Definindo cor do console
+												system("cls");
+												logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+												printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+												multiplicarPrintf("=", 122);
+												printf("\n ERRO! senha BLOQUEADA!:");
+												scanf("%s", usuario[contadorUsuario].SENHA);
+												
+												//Bloquear nova senha com mais de doze (12) dígitos
+												if (strlen(usuario[contadorUsuario].SENHA) > 12){ //Comparar se uma variável tem um valor específico igual
+													do{
+														system("mode con:cols=122 lines=13"); //Definindo tamanho do console
+														system("color B0"); //Definindo cor do console
+														system("cls");
+														logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+														printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+														multiplicarPrintf("=", 122);
+														printf("\n ERRO! senhas com mais de doze (12) dígitos serão BLOQUEADAS!:");
+														scanf("%s", usuario[contadorUsuario].SENHA);
+													}while (strlen(usuario[contadorUsuario].SENHA) > 12); //Comparar se uma variável tem um valor específico igual
+												}
+												
+											}while (strcmp(usuario[contadorUsuario].SENHA, "0") == 0); //Comparar se uma variável tem um valor específico igual
+										}
+										
+										//Confirmar criar senha do usuário
+										system("mode con:cols=122 lines=13"); //Definindo tamanho do console
+										system("color B0"); //Definindo cor do console
+										system("cls");
+										logo((122 -14) / 2); //(cols(largura da página) - 14) / 2
+										printf("\n ID: %s | Nome: %s \n ", usuario[contadorUsuario].ID, usuario[contadorUsuario].NOME);
+										multiplicarPrintf("=", 122);
+										printf("\n Confirme sua nova senha:");
+										scanf("%s", confirmarSenha);
+									}while(strcmp(usuario[contadorUsuario].SENHA, confirmarSenha) != 0); //Comparar se duas variável são diferentes	
+								}else{
+									sairMenuAjuda = 1;
+									intOpcaoMenuPrincipal = 9;
+								}
 							}else{
 								sairMenuAjuda = 1;
 							}
