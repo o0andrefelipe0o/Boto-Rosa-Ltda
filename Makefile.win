@@ -12,7 +12,7 @@ CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"
 BIN      = "PONTEIROS, FUNÇÕES E ESTRUTURAS.exe"
 CXXFLAGS = $(CXXINCS) -g3
 CFLAGS   = $(INCS) -g3
-DEL      = C:\Program Files (x86)\Embarcadero\Dev-Cpp\devcpp.exe INTERNAL_DEL
+DEL      = C:\Program Files (x86)\Embarcadero\Dev-Cpp\DevCpp.exe INTERNAL_DEL
 
 .PHONY: all all-before all-after clean clean-custom
 
@@ -24,5 +24,5 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-"Gestão\ de\ transportes\ da\ empresa\ Boto-Rosa\ Ltda.o": Gestão\ de\ transportes\ da\ empresa\ Boto-Rosa\ Ltda.c
-	$(CC) -c "Gestão de transportes da empresa Boto-Rosa Ltda.c" -o "Gestão de transportes da empresa Boto-Rosa Ltda.o" $(CFLAGS)
+"Gestão\ de\ transportes\ da\ empresa\ Boto-Rosa\ Ltda.o": Gestão\ de\ transportes\ da\ empresa\ Boto-Rosa\ Ltda.cpp
+	$(CC) -c "Gestão de transportes da empresa Boto-Rosa Ltda.cpp" -o "Gestão de transportes da empresa Boto-Rosa Ltda.o" $(CFLAGS)

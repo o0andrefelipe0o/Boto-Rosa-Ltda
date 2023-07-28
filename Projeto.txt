@@ -1,0 +1,44 @@
+Olá! 
+
+Para continuarmos o curso Lógica de Programação em C, vamos propor um desafio para que você demonstre sua criatividade e os conhecimentos adquiridos no curso! 
+
+Ah, e não se preocupe, estaremos com você a todo momento, esperamos que aproveite bastante e também se divirta com as tecnologias que iremos lhe apresentar neste bloco.
+
+Agradecemos pela confiança! Vamos seguir juntos?
+
+CONTEXTUALIZAÇÃO:
+
+A empresa Boto-Rosa Ltda é uma empresa que transporta mercadorias e passageiros do rio amazonas até portos marítimos da costa brasileira. Você acaba de ser contratado como desenvolvedor para construir um sistema que solucione os problemas de gestão de transportes da empresa. Durante as reuniões com a diretoria da empresa, alguns requisitos foram levantados e impostos como mínimos para implantação do sistema:
+Sistema de login (requisitar usuário e senha para acesso ao sistema)
+Tela Inicial pós login – Boas Vindas – Menu Principal
+Menu Principal
+Passageiros, Cargas, Tripulação, Ajuda e Sobre
+Menu Passageiros
+Listar todos, cadastrar novo e excluir.
+Classe econômica.
+Classe Executiva. 
+Informações básicas de cadastro (Código de Embarque, Nome Completo, e-mail, Classe, CPF, Data de Nascimento, Local de Embarque, Local de Desembarque, etc.).
+Produtos consumidos (quantidade, descrição e valor).
+Menu Cargas
+Cadastrar novo, listar todos e excluir.
+Informações básicas de cadastro (Código de embarque, Descrição, Dimensões, Peso, Local de Embarque, Local de Desembarque).
+Menu Tripulação
+Listar todos, cadastrar novo e excluir.
+Capitão.
+Imediato.
+Marinheiro. 
+Informações básicas de cadastro (Código de Embarque, Nome Completo, e-mail, Patente, CPF, Data de Nascimento, etc.).Ajuda (dúvidas gerais de como usar o sistema).Sobre (versão do sistema, desenvolvido por, sobre o sistema e funcionalidades em geral, direitos reservados, etc.) 
+
+DESAFIO:
+
+Analisar todos os requisitos do sistema, abstrair o problema, construir um sistema capaz de gerir todos os elementos do sistema e elaborar um documento em formato .pdf explicando o funcionamento do sistema.
+
+Obs. Como os módulos são parecidos. Você pode escolher um deles para entregar. Ou seja, desenvolva o menu principal, ajuda, sobre e escolher entre Passageiros, Carga ou Tripulação para concluir o desafio.
+
+RESULTADO/ENTREGAS ESPERADAS:
+
+Um arquivo em Zip ou Winrar contendo cada um dos códigos fontes que solucionam os requisitos do sistema ou o link do repositório no github e um documento em formato .pdf. 
+O documento deve ter (1) capa, seguindo padrões ABNT (com instituição, nome do autor, título, descrição, cidade e data); (2) resumo; (3) introdução (descrição do problema e uma introdução do que foi feito); (4) desenvolvimento (descrição detalhada de cada tela do sistema); (5) conclusão (em 1 parágrafo); (6) Referências (se necessário)
+Para conseguir desenvolver o desafio, siga a trilha da sala de aula e as orientações do seu instrutor.
+
+Bons estudos!

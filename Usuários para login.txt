@@ -1,6 +1,6 @@
 Usuário
 ID de login: senai
-Senha: 
+Senha: resetada
 
 Admin
 ID de Login: admin
